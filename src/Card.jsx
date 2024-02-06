@@ -1,4 +1,5 @@
 import './Card.css';
+import {useInputFocus} from "./useInputFocus.js";
 
 export const Card = ({
   id,
@@ -8,6 +9,8 @@ export const Card = ({
   onToggle,
   onDelete,
 }) => {
+  const inputRef = useInputFocus();
+
   const handleTitleChange = (event) => {
     onTitleChange(id, event.target.value);
   };
@@ -43,6 +46,7 @@ export const Card = ({
         value={title}
         onChange={handleTitleChange}
         onBlur={handleTitleBlur}
+        ref={inputRef}
       />
     </form>
   );

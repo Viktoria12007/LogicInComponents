@@ -1,6 +1,12 @@
+import {useState} from "react";
+
 export function useList() {
+  const [list, setList] = useState([]);
+
   /** Создать новый элемент. */
-  const createItem = () => {};
+  const createItem = () => {
+    setList([...list, { id: crypto.randomUUID(), title: '', done: false }]);
+  };
 
   /**
    * Установить заголовок элемента.
@@ -8,21 +14,37 @@ export function useList() {
    * @param id - ID элемента.
    * @param title - Заголовок элемента.
    */
-  const setItemTitle = (id, title) => {};
+  const setItemTitle = (id, title) => {
+    setList(list.map((item) => {
+      if (item.id === id) {
+        return { ...item, title }
+      }
+      return item;
+    }));
+  };
 
   /**
    * Переключить выполненность элемента.
    *
    * @param id - ID элемента.
    */
-  const toggleItem = (id) => {};
+  const toggleItem = (id) => {
+    setList(list.map((item) => {
+      if (item.id === id) {
+        return { ...item, done: !item.done}
+      }
+      return item;
+    }));
+  };
 
   /**
    * Удалить элемент.
    *
    * @param id - ID элемента.
    */
-  const deleteItem = (id) => {};
+  const deleteItem = (id) => {
+    setList(list.filter((item) => item.id !== id));
+  };
 
   return {
     list,
